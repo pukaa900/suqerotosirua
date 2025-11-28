@@ -45,3 +45,5 @@ vec3 proj_inv(mat4 inv_proj_mat, vec3 ndc) {
 }
 
 #include "/prelude/ssgi.glsl"
+#include "/prelude/bloom.glsl"
+#include "/prelude/taa.glsl"

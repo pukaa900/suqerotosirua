@@ -68,6 +68,20 @@ void main() {
 		#endif
 	#endif
 
+	#ifdef TAA
+		#ifdef TEXTURE
+			// Temporal anti-aliasing: blend with history texture when available.
+			colortex0.rgb = taa_resolve(v.coord, colortex0.rgb);
+		#endif
+	#endif
+
+	#ifdef BLOOM
+		#ifdef TEXTURE
+			// Additive bloom contribution from bright regions.
+			colortex0.rgb += bloom_compute(v.coord, colortex0.rgb);
+		#endif
+	#endif
+
 	#ifdef FOG
 		immut vec3 ndc = fma(gl_FragCoord.xyz, vec3(2.0 / vec2(viewWidth, viewHeight), 2.0), vec3(-1.0));
 		immut vec3 view = proj_inv(gbufferProjectionInverse, ndc);
