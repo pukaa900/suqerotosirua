@@ -43,3 +43,5 @@ vec3 proj_inv(mat4 inv_proj_mat, vec3 ndc) {
 
 	return view_undiv.xyz / view_undiv.w;
 }
+
+#include "/prelude/ssgi.glsl"
