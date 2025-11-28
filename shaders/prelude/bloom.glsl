@@ -30,14 +30,14 @@ vec3 bloom_compute(in vec2 uv, in vec3 color) {
 
     for (int i = 0; i < BLOOM_SAMPLES; ++i) {
         vec2 sampleUV = uv + bloomKernel[i] * radius;
-        vec3 sample = texture(gtexture, sampleUV).rgb;
-        float sampleLum = dot(sample, vec3(0.299, 0.587, 0.114));
+        vec3 sampleCol = texture(gtexture, sampleUV).rgb;
+        float sampleLum = dot(sampleCol, vec3(0.299, 0.587, 0.114));
         float weight = max(sampleLum - BLOOM_THRESHOLD, 0.0);
         // simple distance falloff
         float d = length(bloomKernel[i]);
         float fall = 1.0 / (1.0 + d * 2.0);
         weight *= fall;
-        accum += sample * weight;
+        accum += sampleCol * weight;
         weightSum += weight;
     }
 
